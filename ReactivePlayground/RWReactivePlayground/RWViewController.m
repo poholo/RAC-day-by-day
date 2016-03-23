@@ -84,13 +84,13 @@
         RAC宏允许直接把信号的输出应用到对象的属性上。RAC宏有两个参数，第一个是需要设置属性值的对象，第二个是属性名。每次信号产生一个next事件，传递过来的值都会应用到该属性上。
      */
     
-//    RAC(self.usernameTextField, backgroundColor) = [validUserSignal map:^id(NSNumber *usernameValid) {
-//        return  [usernameValid boolValue] ? [UIColor greenColor] : [UIColor purpleColor];
-//    }];
-//    
-//    RAC(self.passwordTextField, backgroundColor) = [validPasswordSignal map:^id(NSNumber *passwordValid) {
-//        return [passwordValid boolValue] ? [UIColor orangeColor] : [UIColor redColor];
-//    }];
+    RAC(self.usernameTextField, backgroundColor) = [validUserSignal map:^id(NSNumber *usernameValid) {
+        return  [usernameValid boolValue] ? [UIColor greenColor] : [UIColor purpleColor];
+    }];
+    
+    RAC(self.passwordTextField, backgroundColor) = [validPasswordSignal map:^id(NSNumber *passwordValid) {
+        return [passwordValid boolValue] ? [UIColor orangeColor] : [UIColor redColor];
+    }];
     
     
     /**
@@ -127,15 +127,15 @@
     
     
     [[[self.signInButton rac_signalForControlEvents:UIControlEventTouchUpInside] flattenMap:^RACStream *(id value) {
-        return [self signInSignal];
-    }]
-     subscribeNext:^(NSNumber*signedIn){
-         BOOL success =[signedIn boolValue];
-         self.signInFailureText.hidden = success;
-         if(success){
-             [self performSegueWithIdentifier:@"signInSuccess" sender:self];
-         }
-     }];
+       return [self signInSignal];
+       }]
+       subscribeNext:^(NSNumber*signedIn){
+           BOOL success =[signedIn boolValue];
+           self.signInFailureText.hidden = success;
+           if(success){
+               [self performSegueWithIdentifier:@"signInSuccess" sender:self];
+           }
+       }];
 
     /*
     [[[self.signInButton
